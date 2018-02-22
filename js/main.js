@@ -1,7 +1,7 @@
 (function ()  {
     "use strict";
 
-    $(() => {
+    $(document).ready(function() {
         $.ajax({
             url:'/json/est_connecte.php'
         }).done(function (data) {
@@ -21,10 +21,12 @@
                data: $(this).serialize()
            })
                .done(function (data) {
-                   if(data.est_connecte) {
-                       $('#form-deconnexion').show();
+                   if(data.result) {
+                       window.location.reload();
+                   } else{
+                       //Erreur de connexion
+                       $("#msg").html('WRONG CREDITENTIALS !!!')
                    }
-                   window.location.reload();
                })
                .fail(function () {
                    alert('aie aie aie ! on se co')
@@ -35,13 +37,9 @@
             $.ajax({
                 url: $(this).attr('action'),
                 method: $(this).attr('method'),
-                data: $(this).serialize(),
-
+                data: $(this).serialize()
             })
-                .done(function (data) {
-                    if(data.est_connecte) {
-                        $('#form-connexion').show();
-                    }
+                .done(function () {
                     window.location.reload();
                 })
                 .fail(function () {
@@ -50,8 +48,13 @@
             return false;
         });
 
+        let test = 0;
 
-
+        $('#omg').click(function () {
+            console.log(test.toString().concat("%"));
+            $('#omfg').css('width', test.toString().concat("%")).html(test.toString().concat("%"));
+            test += 1;
+        });
 
     })
 }) ();
